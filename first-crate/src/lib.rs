@@ -1,8 +1,6 @@
 pub struct First;
+pub struct MyMarker;
 
 impl trait_crate::Associated for First {
-    type Item = u32;
+    type Item = MyMarker;
 }
-
-impl trait_crate::Get<u32> for First {}
-impl trait_crate::Get<i32> for First {}
