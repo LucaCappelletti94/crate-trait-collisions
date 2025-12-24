@@ -44,11 +44,11 @@ It treats the associated type as something that *could* potentially overlap with
 ```mermaid
 graph TD
     subgraph "trait-crate"
-        Def[trait Associated { type Item }<br/>trait Get&lt;T&gt;]
+        Def["trait Associated { type Item }<br/>trait Get&lt;T&gt;"]
     end
 
     subgraph "first-crate"
-        ImplFirst[impl Associated for First {<br/>    type Item = u32<br/>}]
+        ImplFirst["impl Associated for First {<br/>    type Item = u32<br/>}"]
     end
 
     subgraph "second-crate"
