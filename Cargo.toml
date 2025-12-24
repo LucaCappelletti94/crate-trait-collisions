@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["first-crate", "second-crate", "trait-crate"]
+members = ["first-crate", "second-crate", "third-crate", "trait-crate"]
 
 [workspace.dependencies]
 first-crate = { path = "first-crate" }

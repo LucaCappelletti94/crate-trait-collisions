@@ -18,5 +18,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "third-crate"
+version = "0.1.0"
+dependencies = [
+ "trait-crate",
+]
+
+[[package]]
 name = "trait-crate"
 version = "0.1.0"

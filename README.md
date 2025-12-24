@@ -63,3 +63,37 @@ graph TD
     Def --> ImplB
     ImplFirst -.->|Item is MyMarker| ImplB
 ```
+
+## Control Group: Single Crate Success
+
+The crate **`third-crate`** demonstrates that this is indeed a cross-crate limitation. When all the concrete types and implementations reside in the same crate, the compiler successfully resolves the associated type and proves disjointness.
+
+In `third-crate`:
+
+* Structs `Third`, `ThirdMarker`, `Forth`, `ForthMarker` are defined locally.
+* `impl Associated for Third { type Item = ThirdMarker; }`
+* `impl Get<ForthMarker> for Forth`
+* `impl Get<<Third as Associated>::Item> for Forth`
+
+Here, the compiler sees that `<Third as Associated>::Item` is `ThirdMarker`. Since `ThirdMarker` and `ForthMarker` are distinct local types, it accepts both implementations for `Forth`.
+
+```mermaid
+graph TD
+    subgraph "trait-crate"
+        Def["trait Associated { type Item }<br/>trait Get&lt;T&gt;"]
+    end
+
+    subgraph "third-crate"
+        ImplThird["struct ThirdMarker;<br/>impl Associated for Third {<br/>    type Item = ThirdMarker<br/>}"]
+        
+        ImplA["struct ForthMarker;<br/>impl Get&lt;ForthMarker&gt; for Forth"]
+        ImplB["impl Get&lt;Third::Item&gt; for Forth"]
+        
+        ImplA ---|OK: Distinct Types| ImplB
+    end
+
+    Def --> ImplThird
+    Def --> ImplA
+    Def --> ImplB
+    ImplThird -.->|Item is ThirdMarker| ImplB
+```
